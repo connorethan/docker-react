@@ -11,3 +11,17 @@ before_install:
 # -e is for environment variables to set in container
 script:
   - docker run -e CI=true connorethan/docker-react npm run test
+
+# travis ci is configured to deploy to elastic beanstalk
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-1"
+  app: "docker-react"
+  env: "Dockerreact-env"
+  bucket_name: "elasticbeanstalk-us-west-1-958371029899"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
